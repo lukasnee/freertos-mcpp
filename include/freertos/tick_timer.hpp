@@ -35,6 +35,13 @@ class tick_timer
     static time_point now();
 };
 
+template <class Clock, class Duration>
+inline auto duration_until(const std::chrono::time_point<Clock, Duration>& abs_time)
+{
+    auto d = abs_time - Clock::now();
+    return d < Duration::zero() ? Duration::zero() : d;
+}
+
 /// @brief  Converts a duration to the underlying tick count.
 /// @param  rel_time: time duration
 /// @return Tick count

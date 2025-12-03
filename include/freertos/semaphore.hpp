@@ -42,7 +42,7 @@ class semaphore : protected queue
     template <class Clock, class Duration>
     inline bool try_acquire_until(const std::chrono::time_point<Clock, Duration>& abs_time)
     {
-        return try_acquire_for(abs_time - Clock::now());
+        return try_acquire_for(duration_until(abs_time));
     }
 
     /// @brief  Makes the semaphore available a given number of times.

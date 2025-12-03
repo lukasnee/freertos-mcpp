@@ -86,7 +86,7 @@ class condition_variable_any
     template <class Lock, class Clock, class Duration>
     cv_status wait_until(Lock& lock, const std::chrono::time_point<Clock, Duration>& abs_time)
     {
-        return wait_for(lock, abs_time - Clock::now());
+        return wait_for(lock, duration_until(abs_time));
     }
 
     /// @brief  Atomically unlocks @ref lock, and blocks the thread

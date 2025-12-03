@@ -87,7 +87,7 @@ class event_group : private ::StaticEventGroup_t
     template <class Clock, class Duration>
     events wait_any_until(events flags, const std::chrono::time_point<Clock, Duration>& abs_time)
     {
-        return wait_any_for(flags, abs_time - Clock::now());
+        return wait_any_for(flags, duration_until(abs_time));
     }
 
     /// @brief  Blocks the current thread until all of the provided flags are raised.
@@ -111,7 +111,7 @@ class event_group : private ::StaticEventGroup_t
     template <class Clock, class Duration>
     events wait_all_until(events flags, const std::chrono::time_point<Clock, Duration>& abs_time)
     {
-        return wait_all_for(flags, abs_time - Clock::now());
+        return wait_all_for(flags, duration_until(abs_time));
     }
 
     /// @brief  Blocks the current thread until any of the provided flags is raised.
@@ -137,7 +137,7 @@ class event_group : private ::StaticEventGroup_t
     events shared_wait_any_until(events flags,
                                  const std::chrono::time_point<Clock, Duration>& abs_time)
     {
-        return shared_wait_any_for(flags, abs_time - Clock::now());
+        return shared_wait_any_for(flags, duration_until(abs_time));
     }
 
     /// @brief  Blocks the current thread until all of the provided flags are raised.
@@ -162,7 +162,7 @@ class event_group : private ::StaticEventGroup_t
     events shared_wait_all_until(events flags,
                                  const std::chrono::time_point<Clock, Duration>& abs_time)
     {
-        return shared_wait_all_for(flags, abs_time - Clock::now());
+        return shared_wait_all_for(flags, duration_until(abs_time));
     }
 
   protected:

@@ -96,7 +96,7 @@ class recursive_mutex : protected semaphore
     template <class Clock, class Duration>
     inline bool try_lock_until(const std::chrono::time_point<Clock, Duration>& abs_time)
     {
-        return try_lock_for(abs_time - Clock::now());
+        return try_lock_for(duration_until(abs_time));
     }
 
     /// @brief  Function to observe the mutex's current locking thread.

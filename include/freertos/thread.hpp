@@ -397,7 +397,7 @@ inline void sleep_for(const std::chrono::duration<Rep, Period>& rel_time)
 template <class Clock, class Duration>
 inline void sleep_until(const std::chrono::time_point<Clock, Duration>& abs_time)
 {
-    sleep_for(abs_time - Clock::now());
+    sleep_for(duration_until(abs_time));
 }
 
 /// @brief  Terminates the current thread, freeing its resources.
@@ -438,7 +438,7 @@ inline auto wait_notification_until(const std::chrono::time_point<Clock, Duratio
                                     thread::notify_value clear_flags_before = 0,
                                     thread::notify_value clear_flags_after = 0)
 {
-    return wait_notification_for(abs_time - Clock::now(), value, clear_flags_before,
+    return wait_notification_for(duration_until(abs_time), value, clear_flags_before,
                                  clear_flags_after);
 }
 
@@ -469,7 +469,7 @@ inline auto wait_signal_for(const std::chrono::duration<Rep, Period>& rel_time)
 template <class Clock, class Duration>
 inline auto wait_signal_until(const std::chrono::time_point<Clock, Duration>& abs_time)
 {
-    return wait_signal_for(abs_time - Clock::now());
+    return wait_signal_for(duration_until(abs_time));
 }
 
 inline void wait_signal()
@@ -496,7 +496,7 @@ template <class Clock, class Duration>
 inline auto try_acquire_notification_until(const std::chrono::time_point<Clock, Duration>& abs_time,
                                            bool acquire_single = false)
 {
-    return try_acquire_notification_for(abs_time - Clock::now(), acquire_single);
+    return try_acquire_notification_for(duration_until(abs_time), acquire_single);
 }
 
 inline notify_value acquire_notification(bool acquire_single = false)
@@ -543,7 +543,7 @@ inline auto wait_notification_until(thread::notifier::index_type index,
                                     thread::notify_value clear_flags_before = 0,
                                     thread::notify_value clear_flags_after = 0)
 {
-    return wait_notification_for(index, abs_time - Clock::now(), value, clear_flags_before,
+    return wait_notification_for(index, duration_until(abs_time), value, clear_flags_before,
                                  clear_flags_after);
 }
 
@@ -580,7 +580,7 @@ template <class Clock, class Duration>
 inline auto wait_signal_until(thread::notifier::index_type index,
                               const std::chrono::time_point<Clock, Duration>& abs_time)
 {
-    return wait_signal_for(index, abs_time - Clock::now());
+    return wait_signal_for(index, duration_until(abs_time));
 }
 
 inline void wait_signal(thread::notifier::index_type index)
@@ -610,7 +610,7 @@ inline auto try_acquire_notification_until(thread::notifier::index_type index,
                                            const std::chrono::time_point<Clock, Duration>& abs_time,
                                            bool acquire_single = false)
 {
-    return try_acquire_notification_for(index, abs_time - Clock::now(), acquire_single);
+    return try_acquire_notification_for(index, duration_until(abs_time), acquire_single);
 }
 
 inline notify_value acquire_notification(thread::notifier::index_type index,
