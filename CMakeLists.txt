@@ -1,20 +1,34 @@
 if(ESP_PLATFORM)
-    idf_component_register(
-        REQUIRES
-            freertos
-        INCLUDE_DIRS
-            include
-        SRCS
-            src/condition_variable.cpp
-            src/cpu.cpp
-            src/event_group.cpp
-            src/mutex.cpp
-            src/pend_call.cpp
-            src/queue.cpp
-            src/scheduler.cpp
-            src/semaphore.cpp
-            src/thread.cpp
-            src/tick_timer.cpp
-            src/timed_service.cpp
-    )
+  idf_component_register(
+    REQUIRES
+    freertos
+    INCLUDE_DIRS
+    include
+    SRCS
+    src/condition_variable.cpp
+    src/cpu.cpp
+    src/event_group.cpp
+    src/mutex.cpp
+    src/pend_call.cpp
+    src/queue.cpp
+    src/scheduler.cpp
+    src/semaphore.cpp
+    src/thread.cpp
+    src/tick_timer.cpp
+    src/timed_service.cpp)
+else()
+  add_library(
+    freertos-mcpp
+    src/condition_variable.cpp
+    src/cpu.cpp
+    src/event_group.cpp
+    src/mutex.cpp
+    src/pend_call.cpp
+    src/queue.cpp
+    src/scheduler.cpp
+    src/semaphore.cpp
+    src/thread.cpp
+    src/tick_timer.cpp
+    src/timed_service.cpp)
+  target_include_directories(freertos-mcpp PUBLIC include)
 endif()
